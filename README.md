@@ -125,8 +125,9 @@ Please submit a pull request, and I'll be sure to review it ASAP. I am on GitHub
 
 ## Authors and acknowledgment
 
-Kevin McMahon
-Michael D. Howey
+_Kevin McMahon_
+
+_Michael D. Howey_
 
 ## License
 
