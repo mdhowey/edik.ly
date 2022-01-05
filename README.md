@@ -28,20 +28,20 @@ edik.ly is an organization app for SEO companies to manage all client content in
 ## Features:
 
 ### Orgainze all project workflow data in one place
-- Milestones
-- URL's of original article
-- Recommendations/updates to make
-- Content updates (5-bullet pointed list)
-- Focus keywords
-- Wordpress URL
-- Delivered Google Doc
-- Workflow Status (ENUM dropdown)
-- Writer (ENUM dropdown)
-- Delivered Date
-- Published Date
-- Final Title
-- Final Meta Description 
-- Needs Images
+- Milestones (client, owner)
+- URL's of original article (client, owner, contributor)
+- Recommendations/updates to make/Brief (client[view], owner[CRUD], contributor[view])
+- Content updates (client[view], owner[CRUD], contributor[CRUD]) 
+- Focus keywords (client[view], owner[CRUD], contributor[view])
+- Wordpress URL (client[view], owner[CRUD], contributor[CRUD])
+- Delivered Google Doc (client[view], owner[CRUD], contributor[CRUD])
+- Workflow Status (ENUM dropdown) (client[update], owner[update], contributor[update])
+- Writer (ENUM dropdown) (client[view], owner[CRUD])
+- Delivered Date (client[view], owner[CRUD])
+- Published Date (client[CRUD], owner[view])
+- Final Title (client[view], owner[CRUD], contributor[CRUD])
+- Final Meta Description (client[view], owner[CRUD], contributor[CRUD])
+- Needs Images (client[view], owner[CRUD])
 
 ### Allows for clear supervision of progress through client dashboard
 
