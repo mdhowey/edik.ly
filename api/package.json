@@ -1,0 +1,29 @@
+{
+  "name": "edik.ly-api",
+  "version": "1.0.0",
+  "description": "API for SEO articles",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "node",
+    "express",
+    "postgresql",
+    "sequelize"
+  ],
+  "author": "kevin-mcmahon-dev, devhowey",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "pg": "^8.7.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.13.0"
+  }
+}
