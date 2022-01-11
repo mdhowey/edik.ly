@@ -2,9 +2,9 @@
 module.exports = {
   // @TODO for deployment?
   HOST: "localhost",
-  USER: "admin",
-  PASSWORD: "45z@!34*9H",
-  DB: "edik-db",
+  // USER: "admin",
+  // PASSWORD: "45z@!34*9H",
+  DB: "edik_db",
   dialect: "postgres",
   pool: {
     max: 5,

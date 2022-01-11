@@ -39,6 +39,9 @@ app.get("/ping", (req, res) => {
   res.json({ message: "This is the ping route. We are being pinged." });
 });
 
+// Requiring routes folder
+require("./app/routes/article.routes")(app);
+
 // set port and listen
 const PORT = 8080;
 app.listen(PORT, () => {
