@@ -1,5 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
   const Article = sequelize.define("article", {
+    // @TODO implement new UUID for primary key
     group: {
       type: Sequelize.INTEGER,
       // allowNull: false,

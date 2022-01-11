@@ -43,16 +43,141 @@ exports.create = (req, res) => {
     });
 };
 
-// Retrieve All Articles
+// Search Articles by original_title
+exports.findAllBySearch = (req, res) => {
+  const original_title = req.query.original_title;
+  // @TODO search by final_title
+  // const final_title = req.query.final_title;
+  // @TODO search by focus_keyword
+  // const focus_keywords = req.query.focus_keywords;
+  
+  var condition = original_title ? { original_title: { [Op.iLike]: `%${original_title}%` } } : null;
+  // var condition2 = final_title ? { final_title: { [Op.iLike]: `%${final_title}%` } } : null;
 
-// Find individual article
+  Article.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving articles."
+      });
+    });
+};
+
+// Retrieve All Articles
+exports.findAll = (req, res) => {
+  Article.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving articles."
+      });
+    });
+};
+
+// Find individual article by ID
+exports.findOne = (req, res) => {
+  const id = req.params.id;
+
+  Article.findByPk(id)
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Article with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: 
+          err.message || `Error retrieving Article with id=${id}.`
+      });
+    });
+};
 
 // Find Article(s) by User
 
+
 // Find Unassigned Article(s) 
 
+
 // Find articles by focus_keywords
+// @TODO find out how to query indecies of this array
+exports.findAllBySearch = (req, res) => {
+  const original_title = req.query.original_title;
+  // @TODO search by focus_keyword
+  const focus_keywords = req.query.focus_keywords;
+  
+  // var condition = focus_keywords ? { focus_keywords: { [Op.iLike]: `%${focus_keywords}%` } } : null;
+
+  Article.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving articles."
+      });
+    });
+};
+
 
 // Update single article
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  Article.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Article was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update Article with id=${id}. Maybe Article was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || `Error updating Tutorial with id = ${id}`
+      });
+    });
+};
 
 // Delete single article
+exports.delete = (req, res) => {
+  const id = req.params.id;
+
+  Article.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Article deleted successfully."
+        });
+      } else {
+        res.send({
+          message: `Could not delete Article with id: ${id}. Article may not have been found.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: 
+          err.message || `Could not delete Tutorial with id: ${id}.`
+      });
+    });
+};
