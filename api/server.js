@@ -7,11 +7,11 @@ const cors = require("cors");
 const app = express();
 
 // db setup
-// const db = require("./app/models");
-// db.sequelize.sync().then(() => {
-//   // @TODO delete console.log before deployment
-//   console.log("DB connected");
-// });
+const db = require("./app/models");
+db.sequelize.sync().then(() => {
+  // @TODO delete console.log before deployment
+  console.log("DB connected");
+});
 // db.sequelize.sync({force:true}).then(() => {
 //   console.log("Drop and re-sync happened successfully in DB object.")
 // });
