@@ -31,11 +31,9 @@ app.use(bodyParser.json());
 // content-type --> application/x-www-form-urlencoded ????
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// require routes for app
-// require("./app/routes/tutorial.routes")(app);
-
 // Requiring routes folder
 require("./app/routes/article.routes")(app);
+// require("./app/routes/user.routes")(app);
 
 // PING route
 app.get("/ping", (req, res) => {

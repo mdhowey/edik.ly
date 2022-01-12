@@ -8,7 +8,10 @@ module.exports = app => {
   
   // Search all Articles by original_title
   router.get("/", articles.findAllBySearch);
-
+  
+  // Search all Articles by User
+  router.get("/byUser/:contributor", articles.findAllByUser);
+  
   // Retrieve all Articles
   router.get("/all", articles.findAll);
 

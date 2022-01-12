@@ -103,8 +103,25 @@ exports.findOne = (req, res) => {
 };
 
 // Find Article(s) by User
+// https://sequelize.org/master/manual/advanced-many-to-many.html
+exports.findAllByUser = (req, res) => {
+  const contributor = req.params.contributor;
 
+  // var condition = contributor ? { contributor: { [Op]: `%${contributor}%` } } : null;
 
+  Article.findAll({ where: {
+    contributor: contributor
+  }})
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving articles."
+      });
+    });
+};
 // Find Unassigned Article(s) 
 
 
