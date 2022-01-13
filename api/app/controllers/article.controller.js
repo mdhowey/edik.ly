@@ -103,10 +103,10 @@ exports.findOne = (req, res) => {
 };
 
 // Find Article(s) by User
-
+// 1-12-22
 
 // Find Unassigned Article(s) 
-
+// 1-12-22
 
 // Find articles by focus_keywords
 // @TODO find out how to query indecies of this array
