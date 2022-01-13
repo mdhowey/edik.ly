@@ -35,7 +35,7 @@ exports.create = (req, res) => {
     .then(data => {
       res.send(data);
     })
-    .catch(err => { 
+    .catch(err => {
       res.status(500).send({
         message:
           err.message || "An error occured while creating Tutorial."
@@ -50,7 +50,7 @@ exports.findAllBySearch = (req, res) => {
   // const final_title = req.query.final_title;
   // @TODO search by focus_keyword
   // const focus_keywords = req.query.focus_keywords;
-  
+
   var condition = original_title ? { original_title: { [Op.iLike]: `%${original_title}%` } } : null;
   // var condition2 = final_title ? { final_title: { [Op.iLike]: `%${final_title}%` } } : null;
 
@@ -96,7 +96,7 @@ exports.findOne = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: 
+        message:
           err.message || `Error retrieving Article with id=${id}.`
       });
     });
@@ -112,9 +112,11 @@ exports.findAllByUser = (req, res) => {
   // var condition = contributor ? { contributor: { [Op]: `%${contributor}%` } } : null;
 
 
-  Article.findAll({ where: {
-    contributor: contributor
-  }})
+  Article.findAll({
+    where: {
+      contributor: contributor
+    }
+  })
     .then(data => {
       res.send(data);
     })
@@ -134,7 +136,7 @@ exports.findAllBySearch = (req, res) => {
   const original_title = req.query.original_title;
   // @TODO search by focus_keyword
   const focus_keywords = req.query.focus_keywords;
-  
+
   // var condition = focus_keywords ? { focus_keywords: { [Op.iLike]: `%${focus_keywords}%` } } : null;
 
   Article.findAll({ where: condition })
@@ -196,7 +198,7 @@ exports.delete = (req, res) => {
     })
     .catch(err => {
       res.status(500).send({
-        message: 
+        message:
           err.message || `Could not delete Tutorial with id: ${id}.`
       });
     });

@@ -9,17 +9,17 @@ module.exports = app => {
   // // Search all Users by original_title
   // router.get("/", users.findAllBySearch);
 
-  // // Retrieve all Users
-  // router.get("/all", users.findAll);
+  // Retrieve all Users
+  router.get("/all", users.findAll);
 
-  // // Retrieve single User by ID
-  // router.get("/:id", users.findOne);
+  // Retrieve single User by ID
+  router.get("/:id", users.findOne);
 
-  // // Update Single User
-  // router.put("/:id", users.update);
+  // Update Single User
+  router.put("/:id", users.update);
   
-  // // delete Single User
-  // router.delete("/:id", users.delete);
+  // delete Single User
+  router.delete("/:id", users.delete);
 
   app.use('/api/users', router);
 };

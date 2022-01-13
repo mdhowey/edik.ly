@@ -26,20 +26,101 @@ exports.create = (req, res) => {
     .then(data => {
       res.send(data);
     })
-    .catch(err => { 
+    .catch(err => {
       res.status(500).send({
         message:
           err.message || "An error occured while creating User."
       });
     });
 };
+
 // Retrieve All Users
+exports.findAll = (req, res) => {
+  User.findAll()
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving Users."
+      });
+    });
+};
 
-// Find individual user
+// Find individual User by ID
+exports.findOne = (req, res) => {
+  const id = req.params.id;
 
-// Find all Articles in specific user
+  User.findByPk(id)
+    .then(data => {
+      if (data) {
+        res.send(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find User with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || `Error retrieving User with id=${id}.`
+      });
+    });
+};
+
+// Find all Articles assigned to specific user
+// @TODO come back to this one... 1-13-22
 
 // Update single user
+exports.update = (req, res) => {
+  const id = req.params.id;
+
+  User.update(req.body, {
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "User was updated successfully."
+        });
+      } else {
+        res.send({
+          message: `Cannot update User with id=${id}. Maybe User was not found or req.body is empty!`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || `Error updating Tutorial with id = ${id}`
+      });
+    });
+};
 
 // Delete single user
+exports.delete = (req, res) => {
+  const id = req.params.id;
 
+  User.destroy({
+    where: { id: id }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "User deleted successfully."
+        });
+      } else {
+        res.send({
+          message: `Could not delete User with id: ${id}. User may not have been found.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || `Could not delete Tutorial with id: ${id}.`
+      });
+    });
+};
