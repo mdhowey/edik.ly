@@ -103,15 +103,14 @@ exports.findOne = (req, res) => {
 };
 
 // Find Article(s) by User
-<<<<<<< HEAD
 // 1-12-22
-=======
+
 // https://sequelize.org/master/manual/advanced-many-to-many.html
 exports.findAllByUser = (req, res) => {
   const contributor = req.params.contributor;
 
   // var condition = contributor ? { contributor: { [Op]: `%${contributor}%` } } : null;
->>>>>>> 2c6b771368d594e796e5e37c20c82b08c4325ce8
+
 
   Article.findAll({ where: {
     contributor: contributor

@@ -33,12 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Requiring routes folder
 require("./app/routes/article.routes")(app);
-// require("./app/routes/user.routes")(app);
-
-// PING route
-app.get("/ping", (req, res) => {
-  res.json({ message: "This is the ping route. We are being pinged." });
-});
+require("./app/routes/user.routes")(app);
 
 // set port and listen
 const PORT = process.env.PORT || 8080;
