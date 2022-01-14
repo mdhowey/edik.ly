@@ -198,3 +198,38 @@ exports.delete = (req, res) => {
       });
     });
 };
+
+// Set Article's User
+// Tried using (num == 1) convention from .update and .destroy above, but this returned error even on successful
+// addition to user_article join table. This runs without errors and adds new document to user_article table, but
+// the "data" being returned is empty
+
+exports.setArticleUser = (req, res) => {
+  const articleId = req.params.id
+  const userId = req.body.userId
+
+  Article.findByPk(articleId).then(article => {
+    User.findByPk(userId).then(user => {
+      article.addUser([user]);
+    }).then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving articles."
+      });
+    });
+  })
+}
+
+// exports.setArticleUser = (req, res) => {
+//   const articleId = req.params.id
+//   const userId = req.body.userId
+
+//   Article.findAll({ where: {id: articleId}}).on('success', function(article) {
+//     User.findAll({where: {id: userId}}).on('success', function(user) {
+//       article.setUsers([user]);
+//     })
+//   })
+// }
