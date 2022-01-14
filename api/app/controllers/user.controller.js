@@ -49,6 +49,8 @@ exports.findAll = (req, res) => {
 };
 
 // Find individual User by ID
+// Added "where" and "include" to search for articles attached to specific user through join table
+
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
