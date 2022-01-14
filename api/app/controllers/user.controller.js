@@ -52,7 +52,10 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  User.findByPk(id)
+  User.findOne({
+    where: { id: id},
+    include: "articles"
+  })
     .then(data => {
       if (data) {
         res.send(data);
@@ -124,3 +127,26 @@ exports.delete = (req, res) => {
       });
     });
 };
+
+// Assigns article to user
+// Reverse of version in article.controller
+// This does not override any entries
+
+exports.setUserArticle = (req, res) => {
+  const userId = req.params.id
+  const articleId = req.body.articleId
+
+  User.findByPk(userId).then(user => {
+    Article.findByPk(articleId).then(article => {
+      user.addArticle([article]);
+    }).then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving users."
+      });
+    });
+  })
+}

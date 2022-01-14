@@ -205,9 +205,12 @@ exports.delete = (req, res) => {
 };
 
 // Set Article's User
+
 // Tried using (num == 1) convention from .update and .destroy above, but this returned error even on successful
 // addition to user_article join table. This runs without errors and adds new document to user_article table, but
 // the "data" being returned is empty
+
+// Will not create duplicate entries, but does not give an error if you attempt to
 
 exports.setArticleUser = (req, res) => {
   const articleId = req.params.id
@@ -227,14 +230,3 @@ exports.setArticleUser = (req, res) => {
     });
   })
 }
-
-// exports.setArticleUser = (req, res) => {
-//   const articleId = req.params.id
-//   const userId = req.body.userId
-
-//   Article.findAll({ where: {id: articleId}}).on('success', function(article) {
-//     User.findAll({where: {id: userId}}).on('success', function(user) {
-//       article.setUsers([user]);
-//     })
-//   })
-// }

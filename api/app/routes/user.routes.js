@@ -20,6 +20,9 @@ module.exports = app => {
   
   // delete Single User
   router.delete("/:id", users.delete);
-
+  
+  // Set articles for user
+  router.put("/:id/setArticle", users.setUserArticle)
+  
   app.use('/api/users', router);
 };
