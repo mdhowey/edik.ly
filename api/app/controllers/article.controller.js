@@ -84,7 +84,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Article.findOne({
+  Article.findAll({
     where: { id: id},
     include: "users"
   })
@@ -221,10 +221,11 @@ exports.setArticleUser = (req, res) => {
 
   Article.findByPk(articleId).then(article => {
     User.findByPk(userId).then(user => {
-      article.addUser([user]);
-    }).then(data => {
-      res.send(data);
-    })
+      article.addUser([...user]);
+    }).then(() => {
+      res.send("user_article successfully updated");
+    } 
+  )
     .catch(err => {
       res.status(500).send({
         message:

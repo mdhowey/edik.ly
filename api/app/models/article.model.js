@@ -39,7 +39,7 @@ module.exports = (sequelize, Sequelize) => {
         ]
       })
     },
-    contributor: {
+    owner: {
       // foreign key to user
       type: Sequelize.STRING,
     },
