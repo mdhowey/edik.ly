@@ -39,7 +39,8 @@ module.exports = (sequelize, Sequelize) => {
         ]
       })
     },
-    owner: {
+    // Possibly change this to owner since contributer is already connected through join table
+    contributor: {
       // foreign key to user
       type: Sequelize.STRING,
     },

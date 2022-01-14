@@ -154,3 +154,21 @@ exports.setUserArticle = (req, res) => {
     });
   })
 }
+
+// Deletes user_article entry from user side
+exports.deleteUserArticle = (req, res) => {
+  const userId = req.params.id
+  const articleId = req.body.articleId
+
+  User.findByPk(userId).then(user => {
+    user.removeArticle([articleId]);
+  }).then(() => {
+    res.send("user_article successfully yeeted");
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while deleting reference."
+    });
+  });
+}

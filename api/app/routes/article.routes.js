@@ -27,5 +27,8 @@ module.exports = app => {
   // set user for article
   router.put("/:id/setUser", articles.setArticleUser)
 
+  // delete user for article
+  router.delete("/:id/deleteUser", articles.deleteArticleUser)
+
   app.use('/api/articles', router);
 };
