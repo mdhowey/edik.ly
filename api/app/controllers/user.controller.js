@@ -2,37 +2,95 @@ const db = require("../models");
 const Article = db.articles;
 const User = db.users;
 const Op = db.Sequelize.Op;
+const bcrypt = require("bcrypt");
+const jwtGenerator = require("../utils/jwtGenerator")
+const authorization = require("../middleware/authorization")
 
 // Create and Save User
-exports.create = (req, res) => {
-  if (!req.body.username || !req.body.password || !req.body.email) {
-    res.status(400).send({
-      message: "Content cannot be empty."
-    });
-    return;
-  }
-  const user = {
-    username: req.body.username,
-    email: req.body.email,
-    first_name: req.body.first_name,
-    last_name: req.body.last_name,
-    password: req.body.password,
-    is_owner: req.body.is_owner,
-    is_client: req.body.is_client,
-    last_login: req.body.last_login
-  }
+// exports.create = (req, res) => {
+//   if (!req.body.username || !req.body.password || !req.body.email) {
+//     res.status(400).send({
+//       message: "Content cannot be empty."
+//     });
+//     return;
+//   }
+//   const user = {
+//     username: req.body.username,
+//     email: req.body.email,
+//     first_name: req.body.first_name,
+//     last_name: req.body.last_name,
+//     password: req.body.password,
+//     is_owner: req.body.is_owner,
+//     is_client: req.body.is_client,
+//     last_login: req.body.last_login
+//   }
 
-  User.create(user)
-    .then(data => {
-      res.send(data);
+//   User.create(user)
+//     .then(data => {
+//       res.send(data);
+//     })
+//     .catch(err => {
+//       res.status(500).send({
+//         message:
+//           err.message || "An error occured while creating User."
+//       });
+//     });
+// };
+
+exports.register = async (req, res) => {
+  try {
+    const user = {
+      username: req.body.username,
+      email: req.body.email,
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      password: req.body.password,
+      is_owner: req.body.is_owner,
+      is_client: req.body.is_client,
+      last_login: req.body.last_login
+    }
+
+    // 2) Check if user exists
+    const userCheck = await User.findOne({
+      where: {
+        email: req.body.email,
+        username: req.body.username
+      }
     })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "An error occured while creating User."
+
+    if (userCheck !== null) {
+      return res.status(401).send("User already exists")
+    }
+
+    // 3) Bcrypt new user password
+    const saltRound = 12;
+    const salt = await bcrypt.genSalt(saltRound);
+
+    const bcryptPassword = await bcrypt.hash(req.body.password, salt);
+
+    user.password = bcryptPassword;
+
+    // 4) Enter the user into database
+    const newUser = await User.create(user)
+      .then(data => {
+        // res.send(data);
+
+        // Successfully creates new user (verified in db directly). Sends response of generated token which is the desired outcome
+        const token = jwtGenerator(data.id)
+        res.json({ token })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "An error occured while creating User."
+        });
       });
-    });
-};
+      
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error")
+  }
+}
 
 // Retrieve All Users
 exports.findAll = (req, res) => {
@@ -55,7 +113,7 @@ exports.findOne = (req, res) => {
   const id = req.params.id;
 
   User.findAll({
-    where: { id: id},
+    where: { id: id },
     include: "articles"
   })
     .then(data => {
@@ -143,15 +201,15 @@ exports.setUserArticle = (req, res) => {
     Article.findByPk(articleId).then(article => {
       user.addArticle([article]);
     }).then(() => {
-        res.send("user_article successfully updated");
-      } 
+      res.send("user_article successfully updated");
+    }
     )
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving users."
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while retrieving users."
+        });
       });
-    });
   })
 }
 
@@ -165,10 +223,10 @@ exports.deleteUserArticle = (req, res) => {
   }).then(() => {
     res.send("user_article successfully yeeted");
   })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while deleting reference."
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while deleting reference."
+      });
     });
-  });
 }
