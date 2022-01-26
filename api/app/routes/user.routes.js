@@ -15,6 +15,9 @@ module.exports = app => {
   // Verify
   router.get("/verify", authorization, users.verify);
 
+  // Dashboard
+  router.get("/dashboard", authorization, users.dashboard);
+  
   // // Search all Users by original_title
   // router.get("/", users.findAllBySearch);
 

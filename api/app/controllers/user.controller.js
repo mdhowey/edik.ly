@@ -140,6 +140,30 @@ exports.verify = async (req, res) => {
   }
 }
 
+// Dashboard
+exports.dashboard = async (req, res) => {
+  try {
+    // res.json(req.user)
+    const user = await User.findOne({where: {id: req.user}})
+
+    const payload = {
+      username: user.username,
+      email: user.email,
+      first_name: user.first_name,
+      last_name: user.last_name,
+      is_owner: user.is_owner,
+      is_client: user.is_client,
+      last_login: user.last_login
+    }
+    
+    res.json(payload);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json("Server Error")
+  }
+}
+
 // Retrieve All Users
 exports.findAll = (req, res) => {
   User.findAll()
