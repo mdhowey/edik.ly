@@ -1,4 +1,5 @@
-const validInfo = require("../middleware/validinfo")
+const validInfo = require("../middleware/validinfo");
+const authorization = require("../middleware/authorization");
 
 module.exports = app => {
   const users = require("../controllers/user.controller");
@@ -10,7 +11,10 @@ module.exports = app => {
   
   // Login
   router.post("/login", validInfo, users.login);
-  
+
+  // Verify
+  router.get("/verify", authorization, users.verify);
+
   // // Search all Users by original_title
   // router.get("/", users.findAllBySearch);
 
