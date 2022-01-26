@@ -69,14 +69,14 @@ exports.register = async (req, res) => {
     const bcryptPassword = await bcrypt.hash(req.body.password, salt);
 
     user.password = bcryptPassword;
-
+    let token = null;
     // 4) Enter the user into database
     const newUser = await User.create(user)
       .then(data => {
         // res.send(data);
 
         // Successfully creates new user (verified in db directly). Sends response of generated token which is the desired outcome
-        const token = jwtGenerator(data.id)
+        token = jwtGenerator(data.id)
         res.json({ token })
       })
       .catch(err => {
@@ -85,7 +85,45 @@ exports.register = async (req, res) => {
             err.message || "An error occured while creating User."
         });
       });
-      
+
+      // const token = jwtGenerator(newUser.id)
+      //   res.json({ token })
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error")
+  }
+}
+
+// Login Route
+exports.login = async (req, res) => {
+  try {
+    // 1) Destructure req.body
+
+    const {email, password} = req.body;
+
+    // 2) Check if user doesn't exist
+
+    const user = await User.findOne({where: {email: email}})
+
+    if (!user) {
+      return res.status(401).json("Password or Email is incorrect");
+    }
+
+    // 3) Check if incoming password matches db password
+
+    const validPassword = await bcrypt.compare(password, user.password)
+
+    console.log(validPassword)
+
+    if (!validPassword) {
+      return res.status(401).json("Password or Email is incorrect")
+    }
+    // 4) Give JWT token
+
+    const token = jwtGenerator(user.id)
+    res.json({ token })
+
+  // Error handling
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error")

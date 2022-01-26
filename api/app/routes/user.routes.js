@@ -5,8 +5,11 @@ module.exports = app => {
 
   let router = require("express").Router();
 
-  // Create new article
+  // Create new user
   router.post("/register", validInfo, users.register);
+  
+  // Login
+  router.post("/login", validInfo, users.login);
   
   // // Search all Users by original_title
   // router.get("/", users.findAllBySearch);
