@@ -1,5 +1,24 @@
+import React from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+
+import './App.css'
+import routes from '../config/routes'
+
 const App = () => {
-  return <h1>edit.ly</h1>
+  return (
+    <div>
+
+      <h1>edik.ly</h1>
+
+      < Router >
+
+      { routes }
+
+      </ Router >
+
+    </div>
+  )
 }
 
 export default App;
