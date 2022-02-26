@@ -1,8 +1,8 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import Dashboard from '../pages/Dashboard'
-import Register from '../pages/Register'
+import Dashboard from '../pages/Dashboard.js'
+import Register from '../pages/Register.js'
 // import Login from '../pages/Login/Login'
 
 export default (

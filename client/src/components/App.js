@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 
 import './App.css'
-import routes from '../config/routes'
+import routes from '../config/routes.js'
 
 const App = () => {
   return (
