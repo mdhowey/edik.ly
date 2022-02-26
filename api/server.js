@@ -17,12 +17,14 @@ db.sequelize.sync().then(() => {
 // });
 
 // configure cors optinos
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
+// var corsOptions = {
+//   origin: "http://localhost:8080"
+// };
 
 // add cors
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
+app.options('*', cors());
 
 // parse requests (json)
 app.use(bodyParser.json());
@@ -40,3 +42,6 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server up and running at: http://localhost:${PORT}`);
 });
+
+// http://localhost:8080/api/users/_______
+// http://localhost:8080/api/articles/____
