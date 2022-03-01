@@ -71,12 +71,25 @@ exports.register = async (req, res) => {
     user.password = bcryptPassword;
     let token = null;
     // 4) Enter the user into database
+    // const newUser = await User.create(user);
+    // const newToken = await jwtGenerator(newUser.id)
+    // if (newUser) {
+      
+    //   res.status(200).json({
+    //     status: 200,
+    //     message: "Registration Success",
+    //     token: newToken
+    //   })
+    // }
+
     const newUser = await User.create(user)
       .then(data => {
         // res.send(data);
-
+        console.log(user);
+        console.log(data);
         // Successfully creates new user (verified in db directly). Sends response of generated token which is the desired outcome
         token = jwtGenerator(data.id)
+        console.log(token);
         res.json({ token })
       })
       .catch(err => {
@@ -88,9 +101,11 @@ exports.register = async (req, res) => {
 
       // const token = jwtGenerator(newUser.id)
       //   res.json({ token })
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send("Server Error")
+  } catch (error) {
+    return res.status(500).json({
+      status: 500,
+      message: error || "Something went wrong. Please try again",
+    });
   }
 }
 

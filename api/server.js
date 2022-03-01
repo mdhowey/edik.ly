@@ -1,11 +1,12 @@
 // import dependices
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+require("dotenv").config({path: "./.env"});
+
 
 // create Express app
 const app = express();
-
+const cors = require("cors");
 // db setup
 const db = require("./app/models");
 db.sequelize.sync().then(() => {
@@ -17,14 +18,15 @@ db.sequelize.sync().then(() => {
 // });
 
 // configure cors optinos
-// var corsOptions = {
-//   origin: "http://localhost:8080"
-// };
+var corsOptions = {
+  origin: "http://localhost:3000"
+};
 
 // add cors
-// app.use(cors(corsOptions));
-app.use(cors());
-app.options('*', cors());
+app.use(cors(corsOptions));
+// app.use(cors());
+// app.options('*', cors());
+// app.use(express.json());
 
 // parse requests (json)
 app.use(bodyParser.json());
