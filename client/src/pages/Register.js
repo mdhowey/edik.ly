@@ -15,11 +15,11 @@ const Register = () => {
 
   function handleSubmit(event) {
 		event.preventDefault();
-		User.register({first_name, last_name, username, email, password}).then((data) => {
+		User.register({username, email, first_name, last_name, password}).then((data) => {
 			console.log(data);
 			console.log(data.token);
 
-			if (data.status === 200) {
+			if (data.token) {
 				localStorage.setItem("uid", data.token);
 				// nav("/dashboard");
         nav("/");
