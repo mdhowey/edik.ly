@@ -12,8 +12,6 @@ const App = () => {
 
       < ResponsiveAppBar />
 
-      <h1>edik.ly</h1>
-
       < Router >
 
       { routes }

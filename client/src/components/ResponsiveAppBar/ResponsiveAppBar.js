@@ -12,8 +12,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
-const pages = ['Home', 'Goals', 'About'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import './ResponsiveAppBar.css'
+
+const pages = ['Dashboard'];
+const settings = ['Profile', 'Account', 'Logout'];
 
 const ResponsiveAppBar = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -44,7 +46,7 @@ const ResponsiveAppBar = () => {
                         component="div"
                         sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
                     >
-                        <img src="https://i.imgur.com/9HyiX0R.png" alt="FinFam" />
+                        <img src="https://iconsplace.com/wp-content/uploads/_icons/ffa500/256/png/pen-icon-11-256.png" alt="Edikly" id="navbar-logo" />
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -89,7 +91,7 @@ const ResponsiveAppBar = () => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
                     >
-                        FinFam
+                        Edik.ly
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
