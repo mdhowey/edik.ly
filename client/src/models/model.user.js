@@ -3,6 +3,7 @@ const url = 'http://localhost:8080/api/users'
 // *** Verify naming convention of .uid in header
 
 class User {
+    // DONE
     static register = (data) => {
         return fetch(`${url}/register`, {
             method: "POST",
@@ -20,6 +21,7 @@ class User {
         }).catch((error) => console.log(error));
     }
     
+    // DONE
     static login = (data) => {
         return fetch(`${url}/login`, {
             method: "POST",

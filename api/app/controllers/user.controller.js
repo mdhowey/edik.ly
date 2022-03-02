@@ -162,6 +162,7 @@ exports.dashboard = async (req, res) => {
     const user = await User.findOne({where: {id: req.user}})
 
     const payload = {
+      id: user.id,
       username: user.username,
       email: user.email,
       first_name: user.first_name,
