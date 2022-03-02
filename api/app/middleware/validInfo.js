@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
 
   // Adjust path based on user.routes.js
   if (req.path === "/register") {
-    console.log(!email.length);
+    // console.log(!email.length);
     if (![email, username, password].every(Boolean)) {
       return res.status(401).json("Missing Credentials");
     } else if (!validEmail(email)) {
