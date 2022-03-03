@@ -1,18 +1,27 @@
-const url = 'http://localhost:8080/app/routes/user.routes'
+const url = 'http://localhost:8080/api/users'
 
 // *** Verify naming convention of .uid in header
 
 class User {
+    // DONE
     static register = (data) => {
         return fetch(`${url}/register`, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+              "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-        }).then((res) => res.json());
+        }).then((res) => {
+          console.log(res);
+          return res.json();
+
+          // This was necessary to return body of response promise
+          // Doesn't work as intended, just forces a response through
+          // return res
+        }).catch((error) => console.log(error));
     }
     
+    // DONE
     static login = (data) => {
         return fetch(`${url}/login`, {
             method: "POST",
@@ -20,7 +29,10 @@ class User {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-        }).then((res) => res.json());
+        }).then((res) => {
+          console.log(res);
+          return res.json();
+        });
     };
 
     static dashboard = (data) => {
