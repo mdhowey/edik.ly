@@ -7,12 +7,15 @@ import './Dashboard.css'
 import DoughnutChart from '../components/DoughnutChart/DoughnutChart'
 import ContributorSelect from '../components/ContributorSelect/ContributorSelect'
 import TotalArticles from '../components/TotalArticles/TotalArticles'
+import OneUser from '../components/OneUser/OneUser.js';
 
 const Dashboard = () => {
 
     return (
         <div className="dashboard">
+      
             <Grid justify="space-between" container spacing={2} >
+      
                 <Grid item xl={3} md={3} sm={4} xs={6}>
                     < Paper >
                         < ContributorSelect />
@@ -30,7 +33,13 @@ const Dashboard = () => {
                         < DoughnutChart />
                     </ Paper>
                 </Grid>
+
             </Grid>
+  
+              // ID will update based on dropdown of contributors. Currently set to "24" to test
+            // All data associated with user 24 returns
+            <OneUser id={"24"}/>
+              
         </div>
     )
 }
