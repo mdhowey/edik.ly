@@ -4,9 +4,9 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@mui/material/Typography';
 
 import './Dashboard.css'
-import DoughnutChart from '../../components/DoughnutChart/DoughnutChart'
-import ContributorSelect from '../../components/ContributorSelect/ContributorSelect'
-import TotalArticles from '../../components/TotalArticles/TotalArticles'
+import DoughnutChart from '../components/DoughnutChart/DoughnutChart'
+import ContributorSelect from '../components/ContributorSelect/ContributorSelect'
+import TotalArticles from '../components/TotalArticles/TotalArticles'
 
 const Dashboard = () => {
 
